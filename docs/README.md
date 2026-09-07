@@ -16,9 +16,9 @@ are treated as the research object under test.
   `src/AGENTS.md`)
 - `scripts/` — `generate_figures.py`, `generate_release_artifacts.py`
   (thin orchestrators; see `scripts/README.md`)
-- `manuscript/` — FAIR data-descriptor manuscript (sections
+- `docs/manuscript/` — FAIR data-descriptor manuscript (sections
   `00_abstract`..`99_references`, `config.yaml`, `references.bib`,
-  `figures/`; see `manuscript/README.md`)
+  `figures/`; see `docs/manuscript/README.md`)
 - `data/`, `output/` — dataset inputs and generated release artifacts
 - `docs/` — this documentation folder
 
@@ -31,7 +31,7 @@ root:
 uv run python scripts/pipeline/stage_01_test.py --project templates/template_data_descriptor --project-only
 ```
 
-Forks: copy `manuscript/config.yaml.example` to `manuscript/config.yaml`,
+Forks: copy `docs/manuscript/config.yaml.example` to `docs/manuscript/config.yaml`,
 preserve template integrity, and keep output artifacts regenerated from
 source.
 

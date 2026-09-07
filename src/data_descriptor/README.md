@@ -13,8 +13,10 @@ duplicating rules. Modules:
 - `figures.py` — plot-ready data preparers with no matplotlib dependency
   (`schema_table_rows`, `file_inventory_rows`, `provenance_steps`,
   `severity_counts`, `demo_broken_descriptor`).
+- `rendering.py` — matplotlib rendering of the five manuscript figures
+  (`render_descriptor_figures`, `style_table`), moved here from
+  `scripts/generate_figures.py` by the 2026-09 audit.
 
-The public API is re-exported from `__init__.py`. Matplotlib rendering belongs
-in the thin scripts under `scripts/`, never here; `registry.py` is the one
-project-local exception that mirrors/writes figure artifacts so standalone
-clones stay self-contained.
+The public API is re-exported from `__init__.py`. Matplotlib rendering is
+isolated in `rendering.py`; `registry.py` is the one project-local exception
+that mirrors/writes figure artifacts so standalone clones stay self-contained.

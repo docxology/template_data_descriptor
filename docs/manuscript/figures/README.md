@@ -1,10 +1,11 @@
-# manuscript/figures - template_data_descriptor
+# docs/manuscript/figures - template_data_descriptor
 
 Generated figures embedded in the manuscript. All five are produced
 deterministically (fixed inputs, `MPLBACKEND=Agg`) from
 `data/example_descriptor.json` and the fixture bytes by the thin script
-[`scripts/generate_figures.py`](../../scripts/generate_figures.py), which calls
-tested preparers in `src/data_descriptor/figures.py` and
+[`scripts/generate_figures.py`](../../scripts/generate_figures.py), which delegates
+to `src/data_descriptor/rendering.py` for matplotlib rendering and to tested
+preparers in `src/data_descriptor/figures.py` and
 `src/data_descriptor/verification.py`.
 
 | Figure | Source preparer | Shows |

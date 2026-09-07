@@ -8,7 +8,7 @@
 ## Key modules (pointer, not duplication)
 
 Authoritative per-package rules live in `../AGENTS.md` (root), `src/AGENTS.md`,
-`scripts/AGENTS.md`, and `manuscript/AGENTS.md`; `../STANDALONE.md` documents
+`scripts/AGENTS.md`, and `docs/manuscript/AGENTS.md`; `../STANDALONE.md` documents
 standalone operation.
 
 ## Conventions observed in this repo

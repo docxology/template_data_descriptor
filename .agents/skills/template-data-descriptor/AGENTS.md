@@ -12,7 +12,7 @@ license, and dataset release-readiness validation.
 | Byte-level descriptor↔file reconciliation | `src/data_descriptor/verification.py` (`verify_descriptor_files`) |
 | Figure data comes from tested preparers | `src/data_descriptor/figures.py` + `tests/test_figures.py` |
 | Five manuscript figures, registry-backed | `scripts/generate_figures.py` + `tests/test_generate_figures_script.py` |
-| Claims bound to data structure, not empirical effects | `manuscript/AGENTS.md` + root `AGENTS.md` contracts |
+| Claims bound to data structure, not empirical effects | `docs/manuscript/AGENTS.md` + root `AGENTS.md` contracts |
 
 Keep this skill aligned with the project README and tests. Update the traceability
 table when a claim boundary or test surface changes.

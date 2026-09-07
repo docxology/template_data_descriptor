@@ -1,4 +1,4 @@
-# manuscript/figures - AGENTS.md
+# docs/manuscript/figures - AGENTS.md
 
 Generated artifacts — do not hand-edit. Every PNG here is produced by
 `scripts/generate_figures.py` from `data/example_descriptor.json` and the fixture

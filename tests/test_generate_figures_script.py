@@ -10,6 +10,10 @@ from pathlib import Path
 
 import pytest
 
+from data_descriptor import DESCRIPTOR_FIGURE_SPECS, FIGURE_REGISTRY_SCHEMA
+from data_descriptor.registry import publish_generated_figures
+from data_descriptor.rendering import render_descriptor_figures
+
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 SCRIPT_PATH = PROJECT_ROOT / "scripts" / "generate_figures.py"
@@ -54,28 +58,26 @@ class TestGenerateFigures:
 
     def test_writes_all_figures_to_temp_root(self, tmp_path: Path) -> None:
         shutil.copytree(PROJECT_ROOT / "data", tmp_path / "data")
-        module = _load_script_module()
 
-        written = module.generate_figures(project_root=tmp_path)
+        written = render_descriptor_figures(tmp_path)
 
         assert {path.name for path in written} == EXPECTED_FIGURES
         for path in written:
             assert path.is_file()
             assert path.read_bytes()[:8] == b"\x89PNG\r\n\x1a\n"
-            assert path.parent == tmp_path / "manuscript" / "figures"
+            assert path.parent == tmp_path / "docs" / "manuscript" / "figures"
 
     def test_figures_are_non_empty_and_five(self, tmp_path: Path) -> None:
         shutil.copytree(PROJECT_ROOT / "data", tmp_path / "data")
-        module = _load_script_module()
 
-        written = module.generate_figures(project_root=tmp_path)
+        written = render_descriptor_figures(tmp_path)
 
         assert len(written) == 5
         assert all(path.stat().st_size > 0 for path in written)
 
     def test_full_asset_pipeline_writes_valid_output_registry(self, tmp_path: Path) -> None:
         shutil.copytree(PROJECT_ROOT / "data", tmp_path / "data")
-        shutil.copytree(PROJECT_ROOT / "manuscript", tmp_path / "manuscript")
+        shutil.copytree(PROJECT_ROOT / "docs" / "manuscript", tmp_path / "docs" / "manuscript")
         module = _load_script_module()
 
         written = module.main(project_root=tmp_path)
@@ -90,35 +92,35 @@ class TestGenerateFigures:
             "fig:quality_gate",
             "fig:checksum_verification",
         }
-        ok, issues = _validate_registry(registry, tmp_path / "manuscript")
+        ok, issues = _validate_registry(registry, tmp_path / "docs" / "manuscript")
         assert ok, issues
 
     def test_incomplete_render_set_cannot_publish_registry(self, tmp_path: Path) -> None:
         shutil.copytree(PROJECT_ROOT / "data", tmp_path / "data")
         module = _load_script_module()
-        rendered = module.generate_figures(project_root=tmp_path)
+        rendered = render_descriptor_figures(tmp_path)
         output_figures = tmp_path / "output" / "figures"
 
         with pytest.raises(ValueError, match="missing generated figure file"):
-            module.publish_generated_figures(
+            publish_generated_figures(
                 output_figures,
-                module.dd.DESCRIPTOR_FIGURE_SPECS,
+                DESCRIPTOR_FIGURE_SPECS,
                 rendered[:-1],
-                schema_version=module.dd.FIGURE_REGISTRY_SCHEMA,
+                schema_version=FIGURE_REGISTRY_SCHEMA,
             )
 
         assert not output_figures.exists()
 
     def test_validator_rejects_deleted_registered_figure(self, tmp_path: Path) -> None:
         shutil.copytree(PROJECT_ROOT / "data", tmp_path / "data")
-        shutil.copytree(PROJECT_ROOT / "manuscript", tmp_path / "manuscript")
+        shutil.copytree(PROJECT_ROOT / "docs" / "manuscript", tmp_path / "docs" / "manuscript")
         module = _load_script_module()
         module.main(project_root=tmp_path)
         (tmp_path / "output" / "figures" / "quality_gate.png").unlink()
 
         ok, issues = _validate_registry(
             tmp_path / "output" / "figures" / "figure_registry.json",
-            tmp_path / "manuscript",
+            tmp_path / "docs" / "manuscript",
         )
 
         assert not ok

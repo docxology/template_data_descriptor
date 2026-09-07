@@ -2,9 +2,9 @@
 
 These functions compute *plot-ready* data structures (table rows, ordered
 steps, severity counts) from a descriptor mapping but never import matplotlib.
-Rendering happens in the thin script under ``scripts/`` — keeping plotting out
-of ``src/`` is the thin-orchestrator contract and makes every preparer
-trivially testable without a display backend.
+Rendering lives in :mod:`data_descriptor.rendering` (moved there from the thin
+script by the 2026-09 audit); keeping them matplotlib-free makes every
+preparer trivially testable without a display backend.
 """
 
 from __future__ import annotations
@@ -83,31 +83,31 @@ DESCRIPTOR_FIGURE_SPECS: tuple[DescriptorFigureSpec, ...] = (
         label="fig:schema_overview",
         filename="schema_overview.png",
         caption="Field schema and data dictionary generated from the descriptor.",
-        generated_by="scripts.generate_figures.generate_figures",
+        generated_by="data_descriptor.rendering.render_descriptor_figures",
     ),
     DescriptorFigureSpec(
         label="fig:file_inventory",
         filename="file_inventory.png",
         caption="Declared row counts for every file in the descriptor inventory.",
-        generated_by="scripts.generate_figures.generate_figures",
+        generated_by="data_descriptor.rendering.render_descriptor_figures",
     ),
     DescriptorFigureSpec(
         label="fig:provenance_flow",
         filename="provenance_flow.png",
         caption="Ordered provenance steps and their responsible agents.",
-        generated_by="scripts.generate_figures.generate_figures",
+        generated_by="data_descriptor.rendering.render_descriptor_figures",
     ),
     DescriptorFigureSpec(
         label="fig:quality_gate",
         filename="quality_gate.png",
         caption="Validation findings for the clean fixture and deliberately broken control.",
-        generated_by="scripts.generate_figures.generate_figures",
+        generated_by="data_descriptor.rendering.render_descriptor_figures",
     ),
     DescriptorFigureSpec(
         label="fig:checksum_verification",
         filename="checksum_verification.png",
         caption="Declared and recomputed row counts and checksum status by file.",
-        generated_by="scripts.generate_figures.generate_figures",
+        generated_by="data_descriptor.rendering.render_descriptor_figures",
     ),
 )
 _FIGURE_SPEC_BY_LABEL = {spec.label: spec for spec in DESCRIPTOR_FIGURE_SPECS}
