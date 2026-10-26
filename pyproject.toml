@@ -1,11 +1,11 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=77.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "template_data_descriptor"
 version = "0.1.0"
-license = {text = "CC-BY-4.0"}
+license = "CC-BY-4.0"
 description = "FAIR data descriptor and dataset release packet exemplar"
 authors = [{name = "Daniel Ari Friedman", email = "daniel@activeinference.institute"}]
 requires-python = ">=3.10"
