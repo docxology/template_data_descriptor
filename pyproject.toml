@@ -8,7 +8,7 @@ version = "0.1.0"
 license = "CC-BY-4.0"
 description = "FAIR data descriptor and dataset release packet exemplar"
 authors = [{name = "Daniel Ari Friedman", email = "daniel@activeinference.institute"}]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
     "matplotlib>=3.8.0",
     "pillow>=12.3.0",
