@@ -16,7 +16,7 @@ The descriptor declares each file's media type, sha256 checksum, and row count.
 [@fig:file_inventory] shows the declared row counts, read directly from the
 descriptor by `file_inventory_rows()` in `src/data_descriptor/figures.py` and
 plotted by the thin analysis script
-[`scripts/generate_figures.py`](../scripts/generate_figures.py).
+[`scripts/generate_figures.py`](../../scripts/generate_figures.py).
 
 ![File inventory: declared row counts per file, from `file_inventory_rows()`. The measurement table is the larger of the two files; the subject table is its dimension companion. Both are declared as `text/csv`. The bar values are the row counts recorded in the descriptor, not re-derived here — the quality gate ([@sec:quality]) is where declared and actual counts are reconciled.](figures/file_inventory.png){#fig:file_inventory}
 

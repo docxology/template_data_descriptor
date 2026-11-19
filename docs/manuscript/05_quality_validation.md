@@ -44,7 +44,7 @@ JSON-ready manifest containing the schema fingerprint, per-file checksums and ro
 counts, field-level unit/bounds/enumeration summaries, provenance steps, and the
 readiness verdict — carrying metadata and checksums, never the dataset bytes. The
 thin script
-[`scripts/generate_release_artifacts.py`](../scripts/generate_release_artifacts.py)
+[`scripts/generate_release_artifacts.py`](../../scripts/generate_release_artifacts.py)
 writes this manifest (plus the readiness report and constraint summary) under
 `output/reports/` for pre-publication review.
 
