@@ -17,7 +17,7 @@ from data_descriptor.rendering import render_descriptor_figures
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 SCRIPT_PATH = PROJECT_ROOT / "scripts" / "generate_figures.py"
-FIGURE_LABEL_RE = re.compile(r"\{#(fig:[A-Za-z0-9_:-]+)\}")
+FIGURE_LABEL_RE = re.compile(r"\{#(fig:[A-Za-z0-9_:-]+)(?=\s|\})")
 
 EXPECTED_FIGURES = {
     "schema_overview.png",
@@ -92,6 +92,11 @@ class TestGenerateFigures:
             "fig:quality_gate",
             "fig:checksum_verification",
         }
+        assert {
+            record["label"]: record["metadata"]["alt_text"]
+            for record in payload["figures"]
+        } == {spec.label: spec.alt_text for spec in DESCRIPTOR_FIGURE_SPECS}
+        assert all(spec.alt_text.strip() for spec in DESCRIPTOR_FIGURE_SPECS)
         ok, issues = _validate_registry(registry, tmp_path / "docs" / "manuscript")
         assert ok, issues
 

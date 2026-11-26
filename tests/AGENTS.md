@@ -16,10 +16,10 @@ test exercises the actual `src/data_descriptor/` functions.
 | `test_generate_release_artifacts_script.py` | End-to-end integration: runs `scripts/generate_release_artifacts.py` as a subprocess against the shipped and a deliberately-broken descriptor, and asserts the declared `output/reports/*.json` artifacts (or fail-closed absence) match. |
 | `conftest.py` | Puts `src/` on `sys.path` for the suite. |
 
-Run from the monorepo root:
+Run from the standalone checkout root:
 
 ```bash
-uv run pytest projects/templates/template_data_descriptor/tests --cov=projects/templates/template_data_descriptor/src --cov-fail-under=90
+uv run --locked --extra dev pytest --cov=src --cov-fail-under=90
 ```
 
 See [`README.md`](README.md) for the quick reference.

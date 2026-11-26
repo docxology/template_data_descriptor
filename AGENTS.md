@@ -6,12 +6,10 @@ Configuration lives in `docs/manuscript/config.yaml`; the machine-readable descr
 
 ## Commands
 
-Run tests from the monorepo root:
+Run tests from the standalone checkout root:
 
 ```bash
-uv run pytest projects/templates/template_data_descriptor/tests --cov=projects/templates/template_data_descriptor/src --cov-fail-under=90
-uv run python scripts/pipeline/stage_01_test.py --project templates/template_data_descriptor --project-only
-uv run python scripts/pipeline/stage_04_validate.py --project templates/template_data_descriptor
+uv run --locked --extra dev pytest --cov=src --cov-fail-under=90
 ```
 
 ## Contracts and boundaries

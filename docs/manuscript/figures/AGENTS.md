@@ -6,7 +6,7 @@ bytes, with all computation in `src/data_descriptor/`. To change a figure, chang
 the descriptor, the fixture data, or the tested preparer, then regenerate:
 
 ```bash
-uv run python projects/templates/template_data_descriptor/scripts/generate_figures.py
+uv run --locked python scripts/generate_figures.py
 ```
 
 Keep the figure set and the embedding `![...](figures/<name>.png){#fig:<name>}`

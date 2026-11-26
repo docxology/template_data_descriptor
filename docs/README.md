@@ -1,41 +1,54 @@
-# docs/ — template_data_descriptor
+# Data descriptor documentation
 
-Human-facing documentation entry point. Agent-facing rules:
-[`AGENTS.md`](AGENTS.md). Root overview: [`../README.md`](../README.md).
+- [Set up and test](#set-up-and-test)
+- [Inputs and configuration](#inputs-and-configuration)
+- [Generate and verify outputs](#generate-and-verify-outputs)
+- [Manuscript and render instructions](manuscript/README.md)
+- [Adapt the exemplar to a dataset](forking.md)
 
-## What this repo is
+## Set up and test
 
-`template_data_descriptor` (v0.1.0, CC-BY-4.0 — `../pyproject.toml`): a
-public exemplar for FAIR-style data descriptor papers and dataset release
-packets. The dataset, schema, provenance, licensing, and validation report
-are treated as the research object under test.
-
-## Directory map
-
-- `src/` — `data_descriptor` package (business logic; see `src/README.md`,
-  `src/AGENTS.md`)
-- `scripts/` — `generate_figures.py`, `generate_release_artifacts.py`
-  (thin orchestrators; see `scripts/README.md`)
-- `docs/manuscript/` — FAIR data-descriptor manuscript (sections
-  `00_abstract`..`99_references`, `config.yaml`, `references.bib`,
-  `figures/`; see `docs/manuscript/README.md`)
-- `data/`, `output/` — dataset inputs and generated release artifacts
-- `docs/` — this documentation folder
-
-## How to run / test
-
-(from `../README.md`) Run via the template monorepo from the repository
-root:
+Install uv and use Python 3.11 or newer. From the standalone repository root:
 
 ```bash
-uv run python scripts/pipeline/stage_01_test.py --project templates/template_data_descriptor --project-only
+uv sync --locked --extra dev
+uv run --locked --extra dev pytest --cov=src --cov-fail-under=90
 ```
 
-Forks: copy `docs/manuscript/config.yaml.example` to `docs/manuscript/config.yaml`,
-preserve template integrity, and keep output artifacts regenerated from
-source.
+The tests exercise the checked-in descriptor and fixture files, checksum and
+row-count negative controls, and both artifact-generation scripts.
 
-## Maintenance
+## Inputs and configuration
 
-Docs here are short and factual, derived from the repo's own files. Update
-the map above when top-level layout changes.
+- [Descriptor JSON](../data/example_descriptor.json) defines the dataset
+  identity, license, file inventory, field contracts, primary key, and
+  provenance. Its file paths resolve relative to `data/`.
+- [Fixture tables](../data/fixtures/README.md) are public synthetic CSVs.
+  Keep their recorded hashes and data-row counts in sync with the inventory.
+- [Manuscript configuration](manuscript/config.yaml) controls publication and
+  render metadata. See the [forkable example](manuscript/config.yaml.example).
+- The [domain profile](../domain_profile.yaml) and
+  [experiment plan](../experiment_plan.yaml) describe the exemplar's scope.
+
+## Generate and verify outputs
+
+```bash
+uv run --locked python scripts/generate_figures.py
+uv run --locked python scripts/generate_release_artifacts.py
+```
+
+The figure producer regenerates the embedded PNGs in
+[manuscript/figures](manuscript/figures/README.md), mirrors them into
+`output/figures/`, and writes their figure registry. The release producer
+writes `descriptor_report.json`, `field_constraints.json`, and
+`release_bundle_manifest.json` under `output/reports/`. Override its input
+with `--descriptor` and destination with `--output-dir`.
+
+Inspect the report's `valid` field and findings. The release producer can
+write a report for an invalid descriptor. Verify the fixture bytes separately
+by inspecting the checksum-verification figure or calling
+`verify_descriptor_files(descriptor, descriptor_path.parent)`. Its row
+readers support CSV, JSON arrays or objects containing a `rows`, `data`, or
+`records` list, and newline-delimited JSON. These checks compare hashes
+and row counts. Field constraint validation checks the declarations in
+the descriptor. The release manifest contains metadata and checksums.

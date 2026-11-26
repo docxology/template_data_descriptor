@@ -1,7 +1,7 @@
 # template_data_descriptor TODO
 
 This backlog is future-only. Completed validation and dated review evidence are preserved in
-[`docs/maintenance/exemplar-backlog-history.md`](../../../docs/maintenance/exemplar-backlog-history.md)
+[`docs/maintenance/exemplar-backlog-history.md`](https://github.com/docxology/template/blob/87704feae0a4490ef7dad9c931d268e8c30273c2/docs/maintenance/exemplar-backlog-history.md)
 or in source-owned generated receipts. Each active row must retain a stable ID, size, dependency,
 next action, proving artifact, acceptance command, and negative control; absence of an owner or external receipt
 keeps a capability blocked rather than silently promoting it.
@@ -43,8 +43,8 @@ No active rows are currently scoped at this size.
 
 | ID | Status | Size | Dependency | Next action / unblock condition | Proving artifact | Acceptance command | Negative control |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `DATA-PUBLICATION-1` | blocked-external | Medium | A real fork and owner receipt | Obtain the required owner or external receipt to unblock; run project tests and standalone export check and attach publication receipt + standalone replay. | publication receipt + standalone replay | `uv run pytest projects/templates/template_data_descriptor/tests -q --no-cov` | fabricated publication receipt must fail |
-| `DATA-MEDIA-1` | blocked-external | Medium | Real licensed non-CSV fixture | Obtain a real licensed non-CSV fixture and attach its checksum/row manifest before promoting the media claim. | media checksum/row manifest + license receipt | `uv run pytest projects/templates/template_data_descriptor/tests -q --no-cov` | unsupported media, malformed rows, symlink escape, or wrong checksum must fail |
+| `DATA-PUBLICATION-1` | blocked-external | Medium | A real fork and owner receipt | Obtain the required owner or external receipt to unblock; run project tests and standalone export check and attach publication receipt + standalone replay. | publication receipt + standalone replay | `uv run --locked --extra dev pytest -q --no-cov` | fabricated publication receipt must fail |
+| `DATA-MEDIA-1` | blocked-external | Medium | Real licensed non-CSV fixture | Obtain a real licensed non-CSV fixture and attach its checksum/row manifest before promoting the media claim. | media checksum/row manifest + license receipt | `uv run --locked --extra dev pytest -q --no-cov` | unsupported media, malformed rows, symlink escape, or wrong checksum must fail |
 
 ## Major upcoming
 

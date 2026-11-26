@@ -2,28 +2,26 @@
 
 The demonstration dataset consists of two comma-separated files under
 `data/fixtures/`, described by the machine-readable descriptor
-`data/example_descriptor.json`:
+`data/example_descriptor.json` [@descriptor-example].
 
 - `fixtures/measurements.csv` — one row per synthetic sample, with a bounded
   measurement, an assignment group, a capture instrument, and a collection date.
 - `fixtures/subjects.csv` — one row per synthetic subject, with an enrollment
   site and date. Each measurement references a subject through the `subject_id`
-  foreign key.
+  foreign key. The subject table carries its own enrollment fields. The
+  descriptor's field dictionary covers the measurement table.
 
 ## File inventory
 
 The descriptor declares each file's media type, sha256 checksum, and row count.
-[@fig:file_inventory] shows the declared row counts, read directly from the
-descriptor by `file_inventory_rows()` in `src/data_descriptor/figures.py` and
-plotted by the thin analysis script
-[`scripts/generate_figures.py`](../../scripts/generate_figures.py).
+The file inventory figure shows the declared row counts, read directly from the
+descriptor by `file_inventory_rows()` in `src/data_descriptor/figures.py` and plotted by `scripts/generate_figures.py`.
 
-![File inventory: declared row counts per file, from `file_inventory_rows()`. The measurement table is the larger of the two files; the subject table is its dimension companion. Both are declared as `text/csv`. The bar values are the row counts recorded in the descriptor, not re-derived here — the quality gate ([@sec:quality]) is where declared and actual counts are reconciled.](figures/file_inventory.png){#fig:file_inventory}
+![File inventory: declared row counts per file, from `file_inventory_rows()`. The measurement table is the larger of the two files; the subject table is its dimension companion. Both are declared as `text/csv`. The bars show the counts declared in the descriptor. Byte verification compares these declarations with actual file rows.](figures/file_inventory.png){#fig:file_inventory fig-alt="Bar chart comparing declared row counts for the measurement and subject CSV files."}
 
-Running the script regenerates the figures under `docs/manuscript/figures/`; the prose
-below and in later sections describes what those artifacts show. Because the
-figures are produced from the descriptor and the fixture bytes, they cannot drift
-from the data without the tests and the quality gate noticing.
+File paths in the descriptor resolve relative to its directory. Rerun the
+figure producer after changing the descriptor or fixtures so the embedded
+figures and their provenance registry reflect the same inputs.
 
 ## Release boundary
 
