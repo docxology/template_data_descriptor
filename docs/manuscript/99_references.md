@@ -1,17 +1,7 @@
 # References {#sec:references}
 
-This exemplar draws on established data-publishing practice: the FAIR guiding
-principles for reusable data [@wilkinson2016fair], datasheets-style structured
-dataset documentation [@gebru2021datasheets], the W3C PROV data model for
-provenance [@moreau2013prov], and the Frictionless Data Package container format
-for machine-readable descriptors [@frictionless2023datapackage].
-
-The bibliography lives in [`docs/manuscript/references.bib`](references.bib) and is
-read by Pandoc during PDF render; every `[@key]` citation in the manuscript is
-resolved against that file. To validate that `references.bib` is syntactically
-clean and complete:
-
-```bash
-uv run python -m infrastructure.reference.citation.cli validate \
-    projects/templates/template_data_descriptor/docs/manuscript/references.bib --strict
-```
+The descriptor and synthetic fixture files accompany the exemplar
+[@descriptor-example]. The documentation draws on the FAIR principles
+[@wilkinson2016fair], datasheets for datasets [@gebru2021datasheets], the W3C
+provenance model [@moreau2013prov], and the Data Package specification
+[@frictionless2023datapackage].

@@ -22,7 +22,14 @@ keywords:
   - FAIR data
   - provenance
   - schema validation
+manuscript_dir: "docs/manuscript"
 render:
+  formats:
+    pdf: true
+    html: true
+    slides: true
+    docx: false
+    epub: false
   engine: "pandoc"
   number_sections: true
   toc: true

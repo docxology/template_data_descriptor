@@ -19,7 +19,7 @@ preparers in `src/data_descriptor/figures.py` and
 Regenerate with:
 
 ```bash
-uv run python projects/templates/template_data_descriptor/scripts/generate_figures.py
+uv run --locked python scripts/generate_figures.py
 ```
 
 These PNGs are committed so the manuscript renders on a fresh checkout; they are

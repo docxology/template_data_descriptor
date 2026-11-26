@@ -9,7 +9,7 @@ tags: [exemplar, data, fair, provenance]
 
 # template-data-descriptor
 
-Load this skill when working inside `projects/templates/template_data_descriptor/`.
+Load this skill when working on the data descriptor exemplar.
 
 ## When to Use
 
@@ -20,8 +20,7 @@ Load this skill when working inside `projects/templates/template_data_descriptor
 ## Quick Reference
 
 ```bash
-uv run pytest projects/templates/template_data_descriptor/tests --cov=projects/templates/template_data_descriptor/src --cov-fail-under=90
-uv run python scripts/pipeline/stage_01_test.py --project templates/template_data_descriptor --project-only
+uv run --locked --extra dev pytest --cov=src --cov-fail-under=90
 ```
 
 ## Pitfalls

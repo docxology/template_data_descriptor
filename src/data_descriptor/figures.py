@@ -75,6 +75,7 @@ class DescriptorFigureSpec:
     filename: str
     caption: str
     generated_by: str
+    alt_text: str = ""
 
 
 FIGURE_REGISTRY_SCHEMA = "template-data-descriptor-figure-registry-v1"
@@ -84,30 +85,35 @@ DESCRIPTOR_FIGURE_SPECS: tuple[DescriptorFigureSpec, ...] = (
         filename="schema_overview.png",
         caption="Field schema and data dictionary generated from the descriptor.",
         generated_by="data_descriptor.rendering.render_descriptor_figures",
+        alt_text="Table listing measurement fields, types, nullability, units, and declared constraints.",
     ),
     DescriptorFigureSpec(
         label="fig:file_inventory",
         filename="file_inventory.png",
         caption="Declared row counts for every file in the descriptor inventory.",
         generated_by="data_descriptor.rendering.render_descriptor_figures",
+        alt_text="Bar chart comparing declared row counts for the measurement and subject CSV files.",
     ),
     DescriptorFigureSpec(
         label="fig:provenance_flow",
         filename="provenance_flow.png",
         caption="Ordered provenance steps and their responsible agents.",
         generated_by="data_descriptor.rendering.render_descriptor_figures",
+        alt_text="Flowchart from collecting fixtures through cleaning, validation, and packaging.",
     ),
     DescriptorFigureSpec(
         label="fig:quality_gate",
         filename="quality_gate.png",
         caption="Validation findings for the clean fixture and deliberately broken control.",
         generated_by="data_descriptor.rendering.render_descriptor_figures",
+        alt_text="Bar chart showing no findings on the fixture and errors and warnings on the broken descriptor.",
     ),
     DescriptorFigureSpec(
         label="fig:checksum_verification",
         filename="checksum_verification.png",
         caption="Declared and recomputed row counts and checksum status by file.",
         generated_by="data_descriptor.rendering.render_descriptor_figures",
+        alt_text="Table of declared and recomputed rows and matching checksums for the two fixture files.",
     ),
 )
 _FIGURE_SPEC_BY_LABEL = {spec.label: spec for spec in DESCRIPTOR_FIGURE_SPECS}

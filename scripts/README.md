@@ -3,13 +3,13 @@
 Thin orchestrators. All computation is delegated to `src/data_descriptor/`; these
 scripts only bootstrap paths, invoke module entrypoints, and print output paths.
 
-Use the monorepo pipeline scripts from the repository root for normal
-test/render stages. Two project-local scripts are provided:
+Run the two project-local producers from the standalone checkout root.
+For the shared renderer, see [the manuscript guide](../docs/manuscript/README.md).
 
 | Script | Purpose | Delegates to | Command |
 |--------|---------|--------------|---------|
-| `generate_figures.py` | Render the five manuscript figures, mirror them to `output/figures/`, write `figure_registry.json` | `data_descriptor.rendering.render_descriptor_figures` + a `publish_generated_figures` publisher | `uv run python projects/templates/template_data_descriptor/scripts/generate_figures.py` |
-| `generate_release_artifacts.py` | Create descriptor-review artifacts under `output/reports/` | `data_descriptor.descriptor` reporters | `uv run python projects/templates/template_data_descriptor/scripts/generate_release_artifacts.py` |
+| `generate_figures.py` | Render the five manuscript figures, mirror them to `output/figures/`, write `figure_registry.json` | `data_descriptor.rendering.render_descriptor_figures` + a `publish_generated_figures` publisher | `uv run --locked python scripts/generate_figures.py` |
+| `generate_release_artifacts.py` | Create descriptor-review artifacts under `output/reports/` | `data_descriptor.descriptor` reporters | `uv run --locked python scripts/generate_release_artifacts.py` |
 
 ## `generate_figures.py`
 
@@ -18,7 +18,7 @@ Renders the five manuscript figures into `docs/manuscript/figures/` from
 inventory, provenance flow, quality gate, checksum verification):
 
 ```bash
-uv run python projects/templates/template_data_descriptor/scripts/generate_figures.py
+uv run --locked python scripts/generate_figures.py
 ```
 
 Module logic:
@@ -39,7 +39,7 @@ descriptor readiness report, metadata-only release bundle manifest, and
 field-constraint summary:
 
 ```bash
-uv run python projects/templates/template_data_descriptor/scripts/generate_release_artifacts.py
+uv run --locked python scripts/generate_release_artifacts.py
 ```
 
 Module logic:

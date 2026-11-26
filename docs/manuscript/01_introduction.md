@@ -1,13 +1,12 @@
 # Introduction {#sec:introduction}
 
-A *data descriptor* (or data paper) publishes a dataset as a citable research
-object. Unlike an analysis paper, its contribution is not a statistical finding
-but a **contract**: a precise, machine-readable account of what the dataset
-contains, how it was produced, how it is licensed, and what quality guarantees
-it carries. The FAIR guiding principles — Findable, Accessible, Interoperable,
+A data descriptor records what a dataset contains, how it was produced,
+how it is licensed, and which quality checks its release supports. The FAIR guiding principles — Findable, Accessible, Interoperable,
 Reusable [@wilkinson2016fair] — frame why this matters: a dataset is only
 reusable to the extent that its structure and provenance are legible to both
-humans and machines.
+humans and machines. Datasheets and the Data Package specification provide
+examples of structured dataset documentation and machine-readable packaging
+[@gebru2021datasheets; @frictionless2023datapackage].
 
 ## What this template provides
 
@@ -27,13 +26,7 @@ fork can start from a working, tested baseline:
 
 ## Scope and honesty
 
-The shipped dataset is **synthetic and deliberately small** — it exists to make
-the workflow runnable and testable, not to support any empirical claim. Its
-values are generated deterministically. Accordingly, this manuscript restricts
-its claims to dataset *structure, provenance, quality, and release readiness*.
-When a real dataset is forked in, the same validation and figure code applies
-unchanged; only the descriptor and fixture files are replaced. The sections that
-follow describe the demonstration dataset ([@sec:data]), its schema
-([@sec:schema]), its provenance ([@sec:provenance]), and the quality gate that
-binds the descriptor to the bytes it names ([@sec:quality]), and close with
-usage and forking notes ([@sec:usage]).
+The checked-in synthetic dataset enables local replay of schema and byte
+checks. Its observed values provide evidence about the release workflow.
+A fork should adapt its descriptor, byte readers, tests, and figures to the
+structure and media types of the dataset it intends to publish.

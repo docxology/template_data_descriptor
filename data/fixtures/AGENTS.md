@@ -6,7 +6,7 @@ sha256 checksum and row count and update the matching entry in
 mismatch and the tests fail. Recompute with:
 
 ```bash
-uv run python -c "from pathlib import Path; from data_descriptor import compute_file_digest, count_csv_rows; p=Path('projects/templates/template_data_descriptor/data/fixtures/measurements.csv'); print(compute_file_digest(p), count_csv_rows(p))"
+uv run --locked python -c "from pathlib import Path; from data_descriptor import compute_file_digest, count_csv_rows; p=Path('data/fixtures/measurements.csv'); print(compute_file_digest(p), count_csv_rows(p))"
 ```
 
 Never place real restricted data here; represent it with descriptor metadata and

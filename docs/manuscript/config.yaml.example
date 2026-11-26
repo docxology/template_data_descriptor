@@ -12,14 +12,21 @@ publication:
   version_doi: ""
   version_record: ""
   github_repository: ""
-  repository_url: "https://github.com/docxology/template/tree/main/projects/templates/template_data_descriptor"
+  repository_url: ""
   license: "CC-BY-4.0"
 keywords:
   - data descriptor
   - FAIR data
   - provenance
   - schema validation
+manuscript_dir: "docs/manuscript"
 render:
+  formats:
+    pdf: true
+    html: true
+    slides: true
+    docx: false
+    epub: false
   engine: "pandoc"
   number_sections: true
   toc: true
