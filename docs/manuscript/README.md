@@ -20,8 +20,11 @@ claim is derived from `data/example_descriptor.json` and the tested
 
 ## Render and validate
 
-Use a disposable standalone checkout because regeneration writes to the
-project's existing output tree. Install Git, uv, Pandoc, XeLaTeX, and the
+Use a disposable standalone checkout whose physical directory name is
+`template_data_descriptor`. The pinned renderer's Stage 04 checks for the
+combined PDF using that directory name, which must match the final component
+of `working/template_data_descriptor`. Regeneration writes to the project's
+existing output tree. Install Git, uv, Pandoc, XeLaTeX, and the
 PDF and Beamer dependencies in the pinned template's
 [setup guide](https://github.com/docxology/template/blob/87704feae0a4490ef7dad9c931d268e8c30273c2/docs/guides/startup-and-setup.md).
 
