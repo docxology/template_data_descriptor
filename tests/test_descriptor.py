@@ -75,6 +75,39 @@ class TestNegativeControls:
         assert report.valid is False
         assert report.readiness_score < 1.0
 
+    @pytest.mark.parametrize(
+        "fields",
+        [
+            None,
+            True,
+            7,
+            1.5,
+            {"name": "sample_id", "type": "string", "nullable": False},
+            "sample_id",
+        ],
+        ids=["null", "boolean", "integer", "number", "mapping", "string"],
+    )
+    def test_malformed_fields_report_findings(self, fields: object) -> None:
+        descriptor = load_fixture()
+        descriptor["fields"] = fields
+
+        findings = validate_descriptor(descriptor)
+        report = build_descriptor_report(descriptor)
+        manifest = build_release_bundle_manifest(descriptor)
+
+        assert {finding.code for finding in findings if finding.severity == "error"} == {
+            "missing_fields",
+            "unknown_primary_key",
+        }
+        assert report.findings == findings
+        assert report.valid is False
+        assert report.field_count == 0
+        assert report.file_count == 2
+        assert report.schema_fingerprint == descriptor_fingerprint({"fields": []})
+        assert manifest["valid"] is False
+        assert manifest["field_count"] == 0
+        assert manifest["schema_fingerprint"] == report.schema_fingerprint
+
     def test_non_integer_rows_are_a_structural_error(self) -> None:
         descriptor = load_fixture()
         descriptor["files"][0]["rows"] = "twelve"

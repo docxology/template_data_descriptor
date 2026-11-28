@@ -58,9 +58,14 @@ class FieldConstraintSummary:
     has_pattern: bool
 
 
+def _field_entries(descriptor: dict[str, Any]) -> list[Any]:
+    fields = descriptor.get("fields")
+    return fields if isinstance(fields, list) else []
+
+
 def descriptor_fingerprint(descriptor: dict[str, Any]) -> str:
     """Return a stable fingerprint of the field schema."""
-    fields = descriptor.get("fields", [])
+    fields = _field_entries(descriptor)
     normalized: list[dict[str, str | bool]] = [
         {
             "name": str(field.get("name", "")),
@@ -271,7 +276,7 @@ def _check_fields(descriptor: dict[str, Any], findings: list[DescriptorFinding])
 
 
 def _check_primary_key(descriptor: dict[str, Any], findings: list[DescriptorFinding]) -> None:
-    fields = descriptor.get("fields", [])
+    fields = _field_entries(descriptor)
     field_names = {str(field.get("name", "")) for field in fields if isinstance(field, dict)}
     primary = descriptor.get("primary_key", [])
     if not primary:
