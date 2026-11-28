@@ -108,6 +108,21 @@ class TestVerifyDescriptorFiles:
         assert results[0].actual_rows == -1
         assert results[0].actual_checksum == ""
 
+    def test_directory_is_not_an_omitted_file(self, tmp_path: Path) -> None:
+        (tmp_path / "directory.csv").mkdir()
+        declaration = {"media_type": "text/csv", "checksum": "sha256:" + "0" * 64, "rows": 3}
+        descriptor = {
+            "files": [
+                {"path": "directory.csv", **declaration},
+                {"path": "missing.csv", **declaration},
+            ]
+        }
+
+        results = verify_descriptor_files(descriptor, tmp_path)
+
+        assert [result.status for result in results] == [STATUS_UNSAFE_PATH, "absent"]
+        assert verification_summary(results) == {"total": 2, "verified": 0, "absent": 1, "mismatch": 1}
+
     def test_checksum_mismatch_detected(self, tmp_path: Path) -> None:
         target = tmp_path / "m.csv"
         target.write_text("h\n1\n2\n", encoding="utf-8")
