@@ -211,7 +211,7 @@ def _verify_one(item: dict[str, Any], base_dir: Path) -> FileVerification:
     if not path or not resolved.is_file():
         return FileVerification(
             path=path,
-            status=STATUS_ABSENT,
+            status=STATUS_UNSAFE_PATH if path and resolved.exists() else STATUS_ABSENT,
             declared_checksum=declared_checksum,
             actual_checksum="",
             declared_rows=declared_rows,
